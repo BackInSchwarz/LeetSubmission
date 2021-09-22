@@ -16,6 +16,8 @@ public:
         if (root == NULL){
             return 0;
         }else{
+            if (root->left == NULL && root->right == NULL)
+                return 1;
             if (root->left == NULL) 
                 return 1 + minDepth(root->right);
             if (root->right == NULL)
