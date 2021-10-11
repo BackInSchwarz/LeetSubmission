@@ -4,13 +4,13 @@ public:
     void helper(unordered_set<string> &dict, string &s, vector<string> &ans, string curAns, int start){
         //memorization??
         //end case
-        cout<<start<<endl;
+        // cout<<start<<endl;
         if (start > (s.length()-1))
             ans.push_back(curAns);
         
         //general case
         for (int i = start; i<(s.length()); i++){
-            cout<<s.substr(start, i-start+1)<<endl;
+            // cout<<s.substr(start, i-start+1)<<endl;
             if (dict.find(s.substr(start, i-start+1))!=dict.end()){
                 // initial case
                 if (start == 0){
