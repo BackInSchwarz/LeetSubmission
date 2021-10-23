@@ -1,44 +1,32 @@
 class Solution {
-public:
-    map<int, bool> dp;
-    bool helper(unordered_set<string> &dict, string &s, int start){
-        if (start>(s.length()-1)) return true;
-        // general case. 
+private:
+    bool wordBreak(string s, unordered_set<string> &dict) {
+        if(dict.size()==0) return false;
         
-        if (dp.find(start)!=dp.end()) return dp[start];
+        vector<bool> dp(s.size()+1,false);
+        dp[0]=true;
         
-        bool ans = false;
-        // for (int i = start; i< s.length(); i++){
-        for (int i = (s.length()-1); i>=start; i--){
-            if (dict.find(s.substr(start, i-start+1))!= dict.end()){
-                ans = ans || helper(dict, s, start + (i-start+1));
-                
-                // if ((i == (s.length()-1)) && (ans == true))
-                //     break;
-                if (ans==true)
-                    break;
-            }    
+        for(int i=1;i<=s.size();i++)
+        {
+            for(int j=i-1;j>=0;j--)
+            {
+                if(dp[j])
+                {
+                    string word = s.substr(j,i-j);
+                    if(dict.find(word)!= dict.end())
+                    {
+                        dp[i]=true;
+                        break; //next i
+                    }
+                }
+            }
         }
         
-        dp[start] = ans;
-        
-        return ans;
+        return dp[s.size()];
     }
-    
+public:
     bool wordBreak(string s, vector<string>& wordDict) {
         unordered_set<string> dict(wordDict.begin(), wordDict.end());
-        return helper(dict, s, 0);
+        return wordBreak(s, dict);
     }
 };
-
-
-//recursion without actual answer. just a bool 
-//variables. 
-    //Source, 
-    //start: till which index, it is processed
-//logic
-    //end condition
-    //initial condition
-    //general condition.
-//memorization
-    //
