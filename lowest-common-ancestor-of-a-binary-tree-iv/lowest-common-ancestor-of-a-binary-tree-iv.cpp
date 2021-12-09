@@ -11,7 +11,7 @@
  */
 class Solution {
 public:
-    int helper(TreeNode* root, set<TreeNode*> &nodes_set, TreeNode* & ans){
+    int helper(TreeNode* root, unordered_set <TreeNode*> &nodes_set, TreeNode* & ans){
         //NULL check
         if(!root) return 0;
         //self check
@@ -54,7 +54,7 @@ public:
         if(nodes.size()==1) return nodes[0];
         
         TreeNode* ans;
-        set<TreeNode*> nodes_set(nodes.begin(), nodes.end());
+        unordered_set <TreeNode*> nodes_set(nodes.begin(), nodes.end());
         helper(root, nodes_set, ans);
         
         return ans;
