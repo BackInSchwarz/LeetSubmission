@@ -1,41 +1,23 @@
 class Solution {
 public:
-    bool canReach(vector<int>& arr, int start) {
-        //create stack
-        queue<int> q;
-        // initialize
-        q.push(start);
-
-        unordered_set<int> explored;
-        // loop through every nodes if reach the end return false
-        while(!q.empty()){
-            int n = q.size();
-            // cout<<"current N size: "<<n<<endl;
-            for(int i=0;i<n;i++){
-                //check if it is answer
-                int ind = q.front();
-                q.pop();
-                //add to explored
-                explored.insert(ind);
-                //validate
-                if(ind<0||ind>=arr.size()) continue;
-                if(arr[ind]==0) return true;
-                //clean up the checked item
-
-                //add stuff into queue if not in explored. 
-                // cout<<
-                if(explored.find(ind+arr[ind])==explored.end()){
-                    q.push(ind+arr[ind]);
-                    // cout<<ind+arr[ind]<<endl;
-                } 
-                if(explored.find(ind-arr[ind])==explored.end()) {
-                    q.push(ind-arr[ind]);
-                    // cout<<ind-arr[ind]<<endl;
-                }
-
-            }
-        }
+    bool bfs(vector<int>& arr, int start)
+    {
+        if(arr[start]==0)
+            return true;
+        arr[start]*=-1;
+        int adj1=start+abs(arr[start]);
+        if(adj1<arr.size()&&arr[adj1]>=0)
+            if(bfs(arr,adj1))
+                return true;
+        int adj2=start-abs(arr[start]);
+        if(adj2>=0&&arr[adj2]>=0)
+            if(bfs(arr,adj2))
+                return true;
         
         return false;
+    }
+    bool canReach(vector<int>& arr, int start) {
+        return bfs(arr,start);
+        
     }
 };
