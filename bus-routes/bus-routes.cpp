@@ -57,27 +57,43 @@ public:
                             //check next stop
                                 //same as above.
                     //
+        // create the hash map to store buses number at each stop number
+        // to_routes[busStopNum] is a vector<int> listOfBusNums
         unordered_map<int, vector<int>> to_routes;
         int S = source;
         int T = target;
+        //populate the to_routes hashmap
         for (int i = 0; i < routes.size(); ++i)
             for (int j : routes[i])
                 to_routes[j].push_back(i);
+        //create the BFS queue. {stop, number of buses one has taken so far}
         queue<pair<int, int>> bfs;
+        //push the first bus
         bfs.push({S, 0});
+        //put the node to explored set
         unordered_set<int> seen = {S};
         while (!bfs.empty()) {
+            //initialize the first node
             int stop = bfs.front().first, bus = bfs.front().second;
             bfs.pop();
+            //check if it is the answer
             if (stop == T)
                 return bus;
+            //check all the connected buses. 
+            
+            //for each bus
             for (int i : to_routes[stop]) {
+                //for each stop of the bus
                 for (int j : routes[i]) {
+                    //is this stop visisted?
                     if (seen.find(j) == seen.end()) {
+                        //no - add it it visisted
                         seen.insert(j);
+                        //put it to queue and add 1 to the number of buses have taken so far.
                         bfs.push({j, bus + 1});
                     }
                 }
+                // remove this bus since it is explored. 
                 routes[i].clear();
             }
         }
