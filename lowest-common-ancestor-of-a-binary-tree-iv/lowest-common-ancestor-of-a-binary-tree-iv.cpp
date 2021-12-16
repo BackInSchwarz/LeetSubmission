@@ -24,22 +24,26 @@ public:
         int right = helper(root->right, nodes_set, ans);
         
         //find answer
-        if(cnt_root==0){
-            //case 3
-            if(left>0&&right>0&&((left+right)==nodes_set.size())){
-                ans = root;
-            }
-        }else{
-            //cnt_root>0
-            //case 4
-            if(left>0&&right>0&&((left+right+cnt_root)==nodes_set.size())){
-                ans = root;
-            }
-            // case 1
-            if(left>0&&(right==0)&&(left+cnt_root)==nodes_set.size()) ans = root;
-            //case 2
-            if(left==0&&right>0&&(right+cnt_root)==nodes_set.size()) ans = root;
+//         if(cnt_root==0){
+//             //case 3
+//             if(left>0&&right>0&&((left+right)==nodes_set.size())){
+//                 ans = root;
+//             }
+//         }else{
+//             //cnt_root>0
+//             //case 4
+//             if(left>0&&right>0&&((left+right+cnt_root)==nodes_set.size())){
+//                 ans = root;
+//             }
+//             // case 1
+//             if(left>0&&(right==0)&&(left+cnt_root)==nodes_set.size()) ans = root;
+//             //case 2
+//             if(left==0&&right>0&&(right+cnt_root)==nodes_set.size()) ans = root;
                
+//         }
+        int total = cnt_root+left+right;
+        if(ans==NULL&&(total==nodes_set.size())){
+            ans = root;
         }
         
         
@@ -53,7 +57,7 @@ public:
         //case 4: left + root + right. and they all greater>0
         if(nodes.size()==1) return nodes[0];
         
-        TreeNode* ans;
+        TreeNode* ans=NULL;
         unordered_set <TreeNode*> nodes_set(nodes.begin(), nodes.end());
         helper(root, nodes_set, ans);
         
