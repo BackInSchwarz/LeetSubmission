@@ -12,24 +12,33 @@ public:
 class Solution {
 public:
     Node* lowestCommonAncestor(Node* p, Node * q) {
-        vector<Node*> p_list;
-        vector<Node*> q_list;
-        p_list.push_back(p);
-        q_list.push_back(q);
+        stack<Node*> pstack;
+        stack<Node*> qstack;
         while(p){
-            p_list.push_back(p->parent);
+            pstack.push(p);
             p = p->parent;
         }
         
         while(q){
-            q_list.push_back(q->parent);
+            qstack.push(q);
             q = q->parent;
         }
+        
         Node* ans=NULL;
-        while((!q_list.empty())&&(!p_list.empty())&&(p_list.back()==q_list.back())){
-            ans = p_list.back();
-            p_list.pop_back();
-            q_list.pop_back();
+        
+        while(!qstack.empty()&&!pstack.empty()){
+            Node* curp = pstack.top();
+            Node* curq = qstack.top();
+            
+            if (curp == curq){
+                ans = curp;
+                pstack.pop();
+                qstack.pop();
+                
+            }else{
+                break;
+            }
+            
         }
         
         return ans;
