@@ -11,19 +11,26 @@
  */
 class Solution {
 public:
-    int theVal;
-    
-    bool helper(TreeNode* root, int theVal){
-        if(!root) return true;
-        
-        if(root->val!=theVal) return false;
-        
-        return helper(root->left, theVal)&&helper(root->right, theVal);
-        
-    }
-    
     bool isUnivalTree(TreeNode* root) {
-        theVal = root->val;
-        return helper(root->left, theVal)&&helper(root->right, theVal);
+        
+        stack<TreeNode*> stk;
+        stk.push(root);
+        
+        int val = root->val;
+        
+        while(!stk.empty()){
+            
+            TreeNode* cur = stk.top();
+            stk.pop();
+            
+            if (cur->val!=val) return false;
+            
+            if (cur->left) stk.push(cur->left);
+            if (cur->right) stk.push(cur->right);
+            
+            
+        }
+        
+        return true;
     }
 };
