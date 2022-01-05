@@ -3,7 +3,7 @@ public:
     vector<int> findSmallestSetOfVertices(int n, vector<vector<int>>& edges) {
         vector<int> incoming(n, 0);
         
-        for (auto edge:edges){
+        for (auto & edge:edges){
             incoming[edge[1]]++;
         }
         
