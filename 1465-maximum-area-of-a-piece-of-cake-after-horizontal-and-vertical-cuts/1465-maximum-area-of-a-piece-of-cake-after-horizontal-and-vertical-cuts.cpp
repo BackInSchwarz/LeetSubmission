@@ -7,15 +7,15 @@ public:
         horizontalCuts.push_back(h);
         verticalCuts.push_back(w);
         
-        long long h_max = 0;
-        long long prev = 0;
+        int h_max = 0;
+        int prev = 0;
         
         for (int i = 0 ; i < horizontalCuts.size(); i++){
             h_max = max(h_max, horizontalCuts[i] - prev);
             prev = horizontalCuts[i];
         }
         
-        long long w_max = 0;
+        int w_max = 0;
         prev = 0;
         
         for (int i = 0 ; i < verticalCuts.size(); i++){
@@ -23,8 +23,8 @@ public:
             prev = verticalCuts[i];
         }
         
-        long long ans = h_max * w_max % 1000000007;
+        // long long ans = h_max * w_max % 1000000007;
         
-        return ans;
+        return (long long) h_max * w_max % 1000000007;
     }
 };
