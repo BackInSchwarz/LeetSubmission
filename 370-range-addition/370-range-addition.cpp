@@ -1,26 +1,26 @@
 class Solution {
 public:
-vector<int> getModifiedArray(int length, vector<vector<int> > updates)
-{
-    vector<int> result(length, 0);
-
-    for (auto& tuple : updates) {
-        int start = tuple[0], end = tuple[1], val = tuple[2];
-
-        result[start] += val;
-        if (end < length - 1)
-            result[end + 1] -= val;
+    vector<int> getModifiedArray(int length, vector<vector<int>>& updates) {
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> q;
+        
+        for (auto it: updates){
+            q.push({ it[0], it[2]});
+            q.push({ it[1]+1, -it[2]});
+        }
+        
+        vector<int> ans(length, 0);
+        
+        int prev = 0;
+        
+        for (int i = 0 ; i < length; i++){
+            while( !q.empty() && q.top().first <= i ){
+                ans[i] +=q.top().second;
+                q.pop();
+            }
+            ans[i]+= prev;
+            prev = ans[i];
+        }
+        
+        return ans;
     }
-
-    // partial_sum applies the following operation (by default) for the parameters {x[0], x[n], y[0]}:
-    // y[0] = x[0]
-    // y[1] = y[0] + x[1]
-    // y[2] = y[1] + x[2]
-    // ...  ...  ...
-    // y[n] = y[n-1] + x[n]
-
-    partial_sum(result.begin(), result.end(), result.begin());
-
-    return result;
-}
 };
