@@ -1,28 +1,27 @@
 class Solution {
 public:
     int connectSticks(vector<int>& sticks) {
-        priority_queue<int, vector<int>, greater<int>> minHeap;
-        int minCost = 0;
+        priority_queue<int, vector<int>, greater<int>> q;
         
-        for(int i = 0; i < sticks.size(); ++i)
-        {
-            minHeap.push(sticks[i]);
+        for (auto it:sticks){
+            q.push(it);
         }
         
-        int root = minHeap.top();
-        minHeap.pop();
+        int ans = 0;
+        int first = 0;
+        int second = 0;
+        int sum = 0;
         
-        while(!minHeap.empty())
-        {
-            int curr = minHeap.top();
-            minHeap.pop();
-            minCost += (root + curr);
-            
-            minHeap.push(root + curr);
-            root = minHeap.top();
-            minHeap.pop();
+        while(q.size()!=1){
+            first = q.top();
+            q.pop();
+            second = q.top();
+            q.pop();
+            sum = first + second;
+            q.push(sum);
+            ans+=sum;
         }
         
-        return minCost;
+        return ans;
     }
 };
