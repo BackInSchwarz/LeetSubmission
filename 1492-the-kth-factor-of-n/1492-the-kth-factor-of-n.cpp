@@ -5,7 +5,7 @@ public:
         int cnt = 0;
         int curDivider = 1;
         
-        while (curDivider<=n){
+        while (curDivider<=(n/2)){
             if ( n%curDivider == 0){
                 cnt++;
             }
@@ -14,6 +14,9 @@ public:
             
             curDivider++;
         }
+        
+        if (cnt == (k-1))
+            return n;
         
         return -1;
         
