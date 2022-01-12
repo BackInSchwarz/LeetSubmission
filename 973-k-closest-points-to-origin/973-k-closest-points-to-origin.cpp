@@ -1,27 +1,14 @@
 class Solution {
 public:
     vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
+        sort(points.begin(), points.end(), [&](vector<int>& a, vector<int>& b){
+            return squareDist(a)<squareDist(b); 
+        });
         
-        priority_queue<pair<float, int>> q;
-        
-        for (int i = 0; i < points.size(); i++){
-            int x = points[i][0];
-            int y = points[i][1];
-            q.push({sqrt( x * x + y * y ), i});
-            
-            while(q.size()>k){
-                q.pop();
-            }
-        }
-        
-        vector<vector<int>> ans;
-        
-        while( !q.empty() ){
-            ans.push_back( points[q.top().second]);
-            q.pop();
-        }
-        
-        
-        return ans;
+        return vector<vector<int>>(points.begin(), points.begin()+k);
+    }
+    
+    int squareDist(vector<int>& point){
+        return point[0]*point[0] + point[1]*point[1];
     }
 };
